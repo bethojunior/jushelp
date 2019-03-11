@@ -14,7 +14,7 @@ module.exports = {
         auth_clienteModel.find(function (err, auth_clientes) {
             if (err) {
                 return res.status(500).json({
-                    message: 'Error when getting auth_cliente.',
+                    message: 'Erro ao buscar dados de autenticacao.',
                     error: err
                 });
             }
@@ -30,13 +30,13 @@ module.exports = {
         auth_clienteModel.findOne({_id: id}, function (err, auth_cliente) {
             if (err) {
                 return res.status(500).json({
-                    message: 'Error when getting auth_cliente.',
+                    message: 'Erro ao buscar dados de autenticacao.',
                     error: err
                 });
             }
             if (!auth_cliente) {
                 return res.status(404).json({
-                    message: 'No such auth_cliente'
+                    message: 'Registro não encontrado dados de autenticacao'
                 });
             }
             return res.json(auth_cliente);
@@ -57,7 +57,7 @@ module.exports = {
         auth_cliente.save(function (err, auth_cliente) {
             if (err) {
                 return res.status(500).json({
-                    message: 'Error when creating auth_cliente',
+                    message: 'Erro ao criar dados de autenticacao',
                     error: err
                 });
             }
@@ -73,13 +73,13 @@ module.exports = {
         auth_clienteModel.findOne({_id: id}, function (err, auth_cliente) {
             if (err) {
                 return res.status(500).json({
-                    message: 'Error when getting auth_cliente',
+                    message: 'Erro ao buscar dados de autenticacao',
                     error: err
                 });
             }
             if (!auth_cliente) {
                 return res.status(404).json({
-                    message: 'No such auth_cliente'
+                    message: 'Registro não encontrado dados de autenticacao'
                 });
             }
 
@@ -90,7 +90,7 @@ module.exports = {
             auth_cliente.save(function (err, auth_cliente) {
                 if (err) {
                     return res.status(500).json({
-                        message: 'Error when updating auth_cliente.',
+                        message: 'Erro ao editar dados de autenticacao.',
                         error: err
                     });
                 }
@@ -108,7 +108,7 @@ module.exports = {
         auth_clienteModel.findByIdAndRemove(id, function (err, auth_cliente) {
             if (err) {
                 return res.status(500).json({
-                    message: 'Error when deleting the auth_cliente.',
+                    message: 'Erro ao deletar dados de autenticacao.',
                     error: err
                 });
             }

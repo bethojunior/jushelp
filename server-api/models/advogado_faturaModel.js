@@ -2,17 +2,23 @@ var mongoose = require('mongoose');
 var Schema   = mongoose.Schema;
 
 var advogado_faturaSchema = new Schema({
-	'plano' : {
+	plano : {
 	 	type: Schema.Types.ObjectId,
 	 	ref: 'plano'
 	},
-	'advogado' : {
+	advogado : {
 	 	type: Schema.Types.ObjectId,
 	 	ref: 'advogado'
 	},
-	'valor' : Number,
-	'numero' : Number,
-	'estado': {
+	valor: {
+        required: true,
+        type: 'number'
+    },
+    numero: {
+        required: true,
+        type: 'number'
+    },
+	estado: {
 		type: 'string',
 		enum: ['Aguardando_pagamento', 'Paga', 'Cancelado', 'Devolvida'],
 		default: 'Aguardando_pagamento'

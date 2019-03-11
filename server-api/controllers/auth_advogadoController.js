@@ -14,7 +14,7 @@ module.exports = {
         auth_advogadoModel.find(function (err, auth_advogados) {
             if (err) {
                 return res.status(500).json({
-                    message: 'Error when getting auth_advogado.',
+                    message: 'Erro ao buscar dados de autenticacao.',
                     error: err
                 });
             }
@@ -30,13 +30,13 @@ module.exports = {
         auth_advogadoModel.findOne({_id: id}, function (err, auth_advogado) {
             if (err) {
                 return res.status(500).json({
-                    message: 'Error when getting auth_advogado.',
+                    message: 'Erro ao buscar dados de autenticacao.',
                     error: err
                 });
             }
             if (!auth_advogado) {
                 return res.status(404).json({
-                    message: 'No such auth_advogado'
+                    message: 'Registro não encontrado dados de autenticacao'
                 });
             }
             return res.json(auth_advogado);
@@ -57,7 +57,7 @@ module.exports = {
         auth_advogado.save(function (err, auth_advogado) {
             if (err) {
                 return res.status(500).json({
-                    message: 'Error when creating auth_advogado',
+                    message: 'Erro ao criar dados de autenticacao',
                     error: err
                 });
             }
@@ -73,13 +73,13 @@ module.exports = {
         auth_advogadoModel.findOne({_id: id}, function (err, auth_advogado) {
             if (err) {
                 return res.status(500).json({
-                    message: 'Error when getting auth_advogado',
+                    message: 'Erro ao buscar dados de autenticacao',
                     error: err
                 });
             }
             if (!auth_advogado) {
                 return res.status(404).json({
-                    message: 'No such auth_advogado'
+                    message: 'Registro não encontrado dados de autenticacao'
                 });
             }
 
@@ -90,7 +90,7 @@ module.exports = {
             auth_advogado.save(function (err, auth_advogado) {
                 if (err) {
                     return res.status(500).json({
-                        message: 'Error when updating auth_advogado.',
+                        message: 'Erro ao editar dados de autenticacao.',
                         error: err
                     });
                 }
@@ -108,7 +108,7 @@ module.exports = {
         auth_advogadoModel.findByIdAndRemove(id, function (err, auth_advogado) {
             if (err) {
                 return res.status(500).json({
-                    message: 'Error when deleting the auth_advogado.',
+                    message: 'Erro ao deletar dados de autenticacao.',
                     error: err
                 });
             }

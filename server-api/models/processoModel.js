@@ -2,20 +2,25 @@ var mongoose = require('mongoose');
 var Schema   = mongoose.Schema;
 
 var processoSchema = new Schema({
-	'cliente' : {
+	cliente : {
 	 	type: Schema.Types.ObjectId,
 	 	ref: 'cliente'
 	},
-	'relato' : {
+	relato : {
 	 	type: Schema.Types.ObjectId,
 	 	ref: 'relato'
 	},
-	'advogado' : {
+	advogado : {
 	 	type: Schema.Types.ObjectId,
 	 	ref: 'advogado'
 	},
-	'numero_processo_interno' : String,
-	'estado': {
+	numero_processo_interno: {
+		required: true,
+		type: 'string',
+		min: 10,
+		max: 255
+	},
+	estado: {
 		type: 'string',
 		enum: ['Pendente', 'Ganho', 'Perdido'],
 		default: 'Pendente'

@@ -1,0 +1,28 @@
+<ion-header no-border>
+  <ion-navbar color="transparent">
+    <ion-buttons end>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content id="login-content" class="login-bg no-scroll">
+  <div class="login-content">
+    <h2 style="font-size: 48px; color: #ffffff;">JusHelp</h2>
+    <!-- <img src="assets/imgs/logo.png"> -->
+
+    <div>
+      <div style="position: relative">
+        <ion-icon style="position: absolute; font-size: 2em; top: 14px; left: 14px" color="white" name="ios-mail"></ion-icon>
+        <input id="loginInput" (focus)="scrollLoginContentTop('login')" (keyup.enter)="login()" type="email" placeholder="Digite seu E-mail"
+          [(ngModel)]="credentials.email">
+      </div>
+      <div style="position: relative">
+        <ion-icon style="position: absolute; font-size: 2em; top: 14px; left: 14px" color="white" name="ios-lock-outline"></ion-icon>
+        <input id="passwordInput" (focus)="scrollLoginContentTop('password')" (keyup.enter)="login()" type="password"
+          placeholder="Digite sua Senha" [(ngModel)]="credentials.senha">
+      </div>
+
+      <button ion-button block color="secondary" class="login-button" (click)="login()">Entrar</button>
+    </div>
+
+  </div>
+</ion-content>

@@ -1,0 +1,16 @@
+<ion-content>
+  <div *ngIf="(!data || data.length == 0)" text-center style="padding-top: 12%;">
+    Sem Relatos
+  </div>
+
+  <ion-list lines="none" *ngIf="data && data.length > 0">
+    <ion-item *ngFor="let item of data" (click)="abrirRelato(item)">
+      <ion-label text-wrap>
+        <div color="primary">
+          <h3>{{item.relato.especialidade.nome}}</h3>
+        </div>
+        <!-- <p style="font-size: 12px; margin-top: 8px;">{{item.data}}</p> -->
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

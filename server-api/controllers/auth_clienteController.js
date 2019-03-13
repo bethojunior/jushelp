@@ -1,118 +1,135 @@
 var auth_clienteModel = require('../models/auth_clienteModel.js');
+var clienteModel = require('../models/clienteModel.js');
 
-/**
- * auth_clienteController.js
- *
- * @description :: Server-side logic for managing auth_clientes.
- */
+var mongoose = require('mongoose');
+var jwt = require('jsonwebtoken');
+var bcrypt = require('bcrypt');
+var getUserID = require('../helpers/get-user-id');
+
 module.exports = {
+    login: function (req, res, next) {
+        if (req.body.email === undefined || req.body.senha === undefined) {
+            throw ('Dados de autenticacao nao encontrados!');
+        }
 
-    /**
-     * auth_clienteController.list()
-     */
-    list: function (req, res) {
-        auth_clienteModel.find(function (err, auth_clientes) {
+        auth_clienteModel.findOne({
+            email: req.body.email
+        }).populate('cliente').exec(function (err, data) {
             if (err) {
-                return res.status(500).json({
-                    message: 'Erro ao buscar dados de autenticacao.',
-                    error: err
-                });
-            }
-            return res.json(auth_clientes);
-        });
-    },
+                return next(err);
+            };
 
-    /**
-     * auth_clienteController.show()
-     */
-    show: function (req, res) {
-        var id = req.params.id;
-        auth_clienteModel.findOne({_id: id}, function (err, auth_cliente) {
-            if (err) {
-                return res.status(500).json({
-                    message: 'Erro ao buscar dados de autenticacao.',
-                    error: err
-                });
-            }
-            if (!auth_cliente) {
-                return res.status(404).json({
-                    message: 'Registro não encontrado dados de autenticacao'
-                });
-            }
-            return res.json(auth_cliente);
-        });
-    },
-
-    /**
-     * auth_clienteController.create()
-     */
-    create: function (req, res) {
-        var auth_cliente = new auth_clienteModel({
-			cliente : req.body.cliente,
-			email : req.body.email,
-			senha : req.body.senha
-
-        });
-
-        auth_cliente.save(function (err, auth_cliente) {
-            if (err) {
-                return res.status(500).json({
-                    message: 'Erro ao criar dados de autenticacao',
-                    error: err
-                });
-            }
-            return res.status(201).json(auth_cliente);
-        });
-    },
-
-    /**
-     * auth_clienteController.update()
-     */
-    update: function (req, res) {
-        var id = req.params.id;
-        auth_clienteModel.findOne({_id: id}, function (err, auth_cliente) {
-            if (err) {
-                return res.status(500).json({
-                    message: 'Erro ao buscar dados de autenticacao',
-                    error: err
-                });
-            }
-            if (!auth_cliente) {
-                return res.status(404).json({
-                    message: 'Registro não encontrado dados de autenticacao'
-                });
+            if (data == null) {
+                return next('E-Mail ou senha invalida!');
             }
 
-            auth_cliente.cliente = req.body.cliente ? req.body.cliente : auth_cliente.cliente;
-			auth_cliente.email = req.body.email ? req.body.email : auth_cliente.email;
-			auth_cliente.senha = req.body.senha ? req.body.senha : auth_cliente.senha;
-			
-            auth_cliente.save(function (err, auth_cliente) {
+            bcrypt.compare(req.body.senha, data.senha, function (err, result) {
                 if (err) {
-                    return res.status(500).json({
-                        message: 'Erro ao editar dados de autenticacao.',
-                        error: err
-                    });
+                    return next('E-Mail ou senha invalida!');
                 }
+                if (result) {
+                    var token = jwt.sign({
+                        id: data.cliente._id
+                    }, '1234567890asdfghjkl', {
+                        expiresIn: 3000
+                    });
 
-                return res.json(auth_cliente);
+                    var retorno = {
+                        token: token,
+                        ...data.cliente._doc
+                    };
+
+                    return res.status(200).json(retorno);
+                }
+                return res.status(401).json({
+                    msg: 'E-Mail ou senha invalida!'
+                });
             });
         });
     },
 
-    /**
-     * auth_clienteController.remove()
-     */
-    remove: function (req, res) {
-        var id = req.params.id;
-        auth_clienteModel.findByIdAndRemove(id, function (err, auth_cliente) {
+    logout: function (req, res, next) {
+        res.status(204).json({
+            msg: 'Logout feito com sucesso!'
+        });
+    },
+
+    check: function (req, res, next) {
+        getUserID(req, function (err, data) {
+            if (err) return next(err);
+            if (!data || !data.id) return new Error('UnauthorizedError');
+            clienteModel.findById(data.id).populate('endereco_cidade').exec(function (errCliente, cliente) {
+                if (errCliente) return next(errCliente);
+                if (!cliente) return next('Usuário não encontrado');
+
+                res.status(200).json(cliente);
+            })
+        });
+    },
+
+    register: function (req, res, next) {
+        if (req.body.email === undefined || req.body.senha === undefined) {
+            throw ('Dados de autenticacao nao encontrados!');
+        }
+
+        bcrypt.hash(req.body.senha, 10, function (err, hash) {
             if (err) {
                 return res.status(500).json({
-                    message: 'Erro ao deletar dados de autenticacao.',
                     error: err
                 });
+            } else {
+                var dados = {
+                    nome: req.body.nome,
+                    cpf: req.body.cpf,
+                    rg: req.body.rg,
+                    email: req.body.email,
+                    data_nasc: req.body.data_nasc,
+                    numero: req.body.numero,
+                    endereco_cep: req.body.endereco.cep,
+                    endereco_logradouro: req.body.endereco.logradouro,
+                    endereco_bairro: req.body.endereco.bairro,
+                    endereco_numero: req.body.endereco.numero,
+                    endereco_complemento: req.body.endereco.complemento,
+                    endereco_pt_referencia: req.body.endereco.pt_referencia
+                };
+
+                if (req.body.lat !== undefined && req.body.lng !== undefined) {
+                    dados['localizacao'] = {
+                        type: 'Point',
+                        coordinates: [req.body.lat, req.body.lng]
+                    };
+                }
+
+                mongoose.startSession().then(function (session) {
+                    session.startTransaction();
+                    var cliente = new clienteModel(dados);
+
+                    cliente.save(function (err) {
+                        if (err) {
+                            session.abortTransaction();
+                            return next(err)
+                        };
+
+                        var authRegister = new auth_clienteModel({
+                            email: req.body.email,
+                            senha: hash,
+                            cliente: cliente._id
+                        });
+
+                        authRegister.save(function (err) {
+                            if (err) {
+                                session.abortTransaction();
+                                return next(err)
+                            };
+
+                            session.commitTransaction();
+                            res.status(201).json({
+                                msg: 'Seja Bem-vindo ' + req.body.nome
+                            });
+                        });
+                    });
+                });
             }
-            return res.status(204).json();
         });
     }
 };

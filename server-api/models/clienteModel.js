@@ -69,8 +69,8 @@ var clienteSchema = new Schema({
 		max: 5
 	},
 	endereco_cidade: {
-		type: ObjectId,
-		ref: 'cidades'
+		type: Schema.Types.ObjectId,
+		ref: 'cidade'
 	},
 	endereco_complemento: {
 		required: true,

@@ -1,0 +1,16 @@
+<ion-content>
+  <div *ngIf="dados.length == 0" text-center style="padding-top: 12%;">
+    Sem Notificações
+  </div>
+
+  <ion-list lines="none" *ngIf="dados.length > 0">
+    <ion-item *ngFor="let item of dados" [ngClass]="{'unread': !item.lido, 'read': item.lido}" (click)="lerNotificacao(item)">
+      <ion-label text-wrap>
+        <div color="primary">
+          <h3>{{item.titulo}}</h3>
+        </div>
+        <p style="font-size: 12px; margin-top: 8px;">{{item.data}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

@@ -1,0 +1,25 @@
+<div class="overlay" (click)="close()">&nbsp;</div>
+
+<ion-content padding>
+  <ion-row>
+    <ion-col>
+      <ion-label item-left style="float: left; font-size: 22px; margin: 0;">Dados do Relato</ion-label>
+      <div class="clearfix"></div>
+    </ion-col>
+    <ion-col (click)="close()">
+      <ion-icon name="close" style="float: right;"></ion-icon>
+      <div class="clearfix"></div>
+    </ion-col>
+  </ion-row>
+
+  <div class="audio" (click)="playAudio()">
+    <div class="icone">
+      <img src="../../../assets/imgs/speaker.png" alt="">
+    </div>
+    <span>Toque no icone para escutar o áudio do relato</span>
+  </div>
+
+  <button style="margin-top: 40px" ion-button color="green" type="button" block>Aceitar</button>
+  <button style="margin-top: 40px" ion-button color="danger" type="button" block>Recusar</button>
+
+</ion-content>

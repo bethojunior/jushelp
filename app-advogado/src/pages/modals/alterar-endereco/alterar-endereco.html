@@ -1,0 +1,125 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Alterar Endereço</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="close()" style="margin-right: 16px;">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <!-- <ion-list style="margin-top: 30px;">
+
+    <ion-item>
+      <ion-label floating>Cidade</ion-label>
+      <select-searchable
+        item-content [(ngModel)]="cidadeSelecionada" [items]="cidades"
+        itemValueField="id"
+        itemTextField="nome"
+        [canSearch]="true"
+        headerColor="primary"
+        placeholder="Selecione sua cidade"
+        searchPlaceholder="Pesquise aqui por sua cidade"
+        searchFailText="Nenhuma cidade encontrada"
+        (onChange)="onCityChanged($event)"
+        (onSearch)="pesquisarCidades($event)">
+          <ng-template ionicSelectableSearchFailTemplate>
+            <div padding>
+              Nenhuma cidade encontrada
+            </div>
+          </ng-template>
+          <ng-template ionicSelectablePlaceholderTemplate>
+            Pesquise por sua cidade
+          </ng-template>
+      </select-searchable>
+    </ion-item>
+
+    <form novalidate [formGroup]="form" (submit)="salvar()">
+
+      <ion-item>
+        <ion-label floating>CEP</ion-label>
+        <ion-input [(ngModel)]="novoEndereco.cep" type="text" formControlName="cep" [class.error1]="!form.controls.cep.valid && form.controls.cep.dirty" [brmasker]="{mask:'00000-000', len:9}"></ion-input>
+      </ion-item>
+      <ion-item no-lines *ngIf="( form.get('cep').hasError('minlength') || form.get('cep').hasError('maxlength') ||form.get('cep').hasError('pattern') ||form.get('cep').hasError('required') ) && form.get('cep').touched">
+        <div class="error" *ngIf="form.get('cep').hasError('required') && form.get('cep').touched">
+          CEP é obrigatório!
+        </div>
+        <div class="error" *ngIf="form.get('cep').hasError('pattern') && form.get('cep').touched">
+          Formato do CEP inválido!
+        </div>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Logradouro</ion-label>
+        <ion-input [(ngModel)]="novoEndereco.logradouro" type="text" formControlName="logradouro" [class.error1]="!form.controls.logradouro.valid && form.controls.logradouro.dirty"></ion-input>
+      </ion-item>
+      <ion-item no-lines *ngIf="( form.get('logradouro').hasError('minlength') || form.get('logradouro').hasError('maxlength') ||form.get('logradouro').hasError('pattern') ||form.get('logradouro').hasError('required') ) && form.get('logradouro').touched">
+        <div class="error" *ngIf="form.get('logradouro').hasError('required') && form.get('logradouro').touched">
+          Logradouro é obrigatório!
+        </div>
+        <div class="error" *ngIf="form.get('logradouro').hasError('minlength') && form.get('logradouro').touched">
+          Tamanho mínimo para o logradouro é 3 caracteres!
+        </div>
+        <div class="error" *ngIf="form.get('logradouro').hasError('maxlength') && form.get('logradouro').touched">
+          Tamanho máximo para o logradouro é 255 caracteres!
+        </div>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Bairro</ion-label>
+        <ion-input [(ngModel)]="novoEndereco.bairro" type="text" formControlName="bairro" [class.error1]="!form.controls.bairro.valid && form.controls.bairro.dirty"></ion-input>
+      </ion-item>
+      <ion-item no-lines *ngIf="( form.get('bairro').hasError('minlength') || form.get('bairro').hasError('maxlength') ||form.get('bairro').hasError('pattern') ||form.get('bairro').hasError('required') ) && form.get('bairro').touched">
+        <div class="error" *ngIf="form.get('bairro').hasError('required') && form.get('bairro').touched">
+          Bairro é obrigatório!
+        </div>
+        <div class="error" *ngIf="form.get('bairro').hasError('minlength') && form.get('bairro').touched">
+          Tamanho mínimo para o bairro é 3 caracteres!
+        </div>
+        <div class="error" *ngIf="form.get('bairro').hasError('maxlength') && form.get('bairro').touched">
+          Tamanho máximo para o bairro é 100 caracteres!
+        </div>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Número</ion-label>
+        <ion-input [(ngModel)]="novoEndereco.numero" type="number" formControlName="numero" [class.error1]="!form.controls.numero.valid && form.controls.numero.dirty"></ion-input>
+      </ion-item>
+      <ion-item no-lines *ngIf="( form.get('numero').hasError('minlength') || form.get('numero').hasError('maxlength') ||form.get('numero').hasError('pattern') ||form.get('numero').hasError('required') ) && form.get('numero').touched">
+        <div class="error" *ngIf="form.get('numero').hasError('required') && form.get('numero').touched">
+          Número é obrigatório!
+        </div>
+        <div class="error" *ngIf="form.get('numero').hasError('pattern') && form.get('numero').touched">
+          Somente númerico!
+        </div>
+      </ion-item>
+
+
+
+      <ion-item>
+        <ion-label floating>Complemento</ion-label>
+        <ion-input [(ngModel)]="novoEndereco.complemento" type="text" formControlName="complemento" [class.error1]="!form.controls.complemento.valid && form.controls.complemento.dirty"></ion-input>
+      </ion-item>
+      <ion-item no-lines *ngIf="( form.get('complemento').hasError('minlength') || form.get('complemento').hasError('maxlength') ||form.get('complemento').hasError('pattern') ||form.get('complemento').hasError('required') ) && form.get('complemento').touched">
+        <div class="error" *ngIf="form.get('complemento').hasError('maxlength') && form.get('complemento').touched">
+          Tamanho máximo para o complemento é 200 caracteres!
+        </div>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Ponto de referẽncia</ion-label>
+        <ion-input [(ngModel)]="novoEndereco.pt_referencia" type="text" formControlName="pt_referencia" [class.error1]="!form.controls.pt_referencia.valid && form.controls.pt_referencia.dirty"></ion-input>
+      </ion-item>
+      <ion-item no-lines *ngIf="( form.get('pt_referencia').hasError('minlength') || form.get('pt_referencia').hasError('maxlength') ||form.get('pt_referencia').hasError('pattern') ||form.get('pt_referencia').hasError('required') ) && form.get('pt_referencia').touched">
+        <div class="error" *ngIf="form.get('pt_referencia').hasError('maxlength') && form.get('pt_referencia').touched">
+          Tamanho máximo para o ponto de referẽncia 2 é 200 caracteres!
+        </div>
+      </ion-item>
+
+      <button style="margin-top: 40px" ion-button type="submit" block>Salvar</button>
+    </form>
+  </ion-list> -->
+
+</ion-content>

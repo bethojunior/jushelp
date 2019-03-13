@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Alterar E-Mail</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="close()" style="margin-right: 16px;">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <!-- <div text-center style="font-size: 18px; margin-top: 30px">
+    Seu e-mail atual é <br />
+    <p style="font-weight: bold;">{{userData.advogado.email}}</p>
+  </div>
+
+  <ion-list>
+    <form novalidate [formGroup]="form" (submit)="salvar()">
+
+      <ion-item>
+        <ion-label floating>Email</ion-label>
+        <ion-input [(ngModel)]="newEmail" type="text" formControlName="email" [class.error1]="!form.controls.email.valid && form.controls.email.dirty"></ion-input>
+      </ion-item>
+      <ion-item no-lines *ngIf="( form.get('email').hasError('minlength') || form.get('email').hasError('pattern') ||form.get('email').hasError('required') ) && form.get('email').touched">
+        <div class="error" *ngIf="form.get('email').hasError('required') && form.get('email').touched">
+          Por favor insira seu e-mail!
+        </div>
+        <div class="error" *ngIf="form.get('email').hasError('pattern') && form.get('email').touched">
+          E-Mail inválido!
+        </div>
+      </ion-item>
+
+      <button style="margin-top: 40px" ion-button type="submit" block>Salvar</button>
+    </form>
+  </ion-list> -->
+
+</ion-content>

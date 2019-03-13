@@ -2,29 +2,9 @@ var express = require('express');
 var router = express.Router();
 var auth_clienteController = require('../controllers/auth_clienteController.js');
 
-/*
- * GET
- */
-router.get('/', auth_clienteController.list);
-
-/*
- * GET
- */
-router.get('/:id', auth_clienteController.show);
-
-/*
- * POST
- */
-router.post('/', auth_clienteController.create);
-
-/*
- * PUT
- */
-router.put('/:id', auth_clienteController.update);
-
-/*
- * DELETE
- */
-router.delete('/:id', auth_clienteController.remove);
+router.post('/login', auth_clienteController.login);
+router.get('/info', auth_clienteController.check);
+router.put('/logout', auth_clienteController.logout);
+router.post('/registrar', auth_clienteController.register);
 
 module.exports = router;

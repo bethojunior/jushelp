@@ -1,118 +1,136 @@
 var auth_advogadoModel = require('../models/auth_advogadoModel.js');
+var advogadoModel = require('../models/advogadoModel.js');
 
-/**
- * auth_advogadoController.js
- *
- * @description :: Server-side logic for managing auth_advogados.
- */
+var mongoose = require('mongoose');
+var jwt = require('jsonwebtoken');
+var bcrypt = require('bcrypt');
+var getUserID = require('../helpers/get-user-id');
+
 module.exports = {
+    login: function (req, res, next) {
+        if (req.body.email === undefined || req.body.senha === undefined) {
+            throw ('Dados de autenticacao nao encontrados!');
+        }
 
-    /**
-     * auth_advogadoController.list()
-     */
-    list: function (req, res) {
-        auth_advogadoModel.find(function (err, auth_advogados) {
+        auth_advogadoModel.findOne({
+            email: req.body.email
+        }).populate('advogado').exec(function (err, data) {
             if (err) {
-                return res.status(500).json({
-                    message: 'Erro ao buscar dados de autenticacao.',
-                    error: err
-                });
-            }
-            return res.json(auth_advogados);
-        });
-    },
+                return next(err);
+            };
 
-    /**
-     * auth_advogadoController.show()
-     */
-    show: function (req, res) {
-        var id = req.params.id;
-        auth_advogadoModel.findOne({_id: id}, function (err, auth_advogado) {
-            if (err) {
-                return res.status(500).json({
-                    message: 'Erro ao buscar dados de autenticacao.',
-                    error: err
-                });
-            }
-            if (!auth_advogado) {
-                return res.status(404).json({
-                    message: 'Registro não encontrado dados de autenticacao'
-                });
-            }
-            return res.json(auth_advogado);
-        });
-    },
-
-    /**
-     * auth_advogadoController.create()
-     */
-    create: function (req, res) {
-        var auth_advogado = new auth_advogadoModel({
-			advogado : req.body.advogado,
-			email : req.body.email,
-			senha : req.body.senha
-
-        });
-
-        auth_advogado.save(function (err, auth_advogado) {
-            if (err) {
-                return res.status(500).json({
-                    message: 'Erro ao criar dados de autenticacao',
-                    error: err
-                });
-            }
-            return res.status(201).json(auth_advogado);
-        });
-    },
-
-    /**
-     * auth_advogadoController.update()
-     */
-    update: function (req, res) {
-        var id = req.params.id;
-        auth_advogadoModel.findOne({_id: id}, function (err, auth_advogado) {
-            if (err) {
-                return res.status(500).json({
-                    message: 'Erro ao buscar dados de autenticacao',
-                    error: err
-                });
-            }
-            if (!auth_advogado) {
-                return res.status(404).json({
-                    message: 'Registro não encontrado dados de autenticacao'
-                });
+            if (data == null) {
+                return next('E-Mail ou senha invalida!');
             }
 
-            auth_advogado.advogado = req.body.advogado ? req.body.advogado : auth_advogado.advogado;
-			auth_advogado.email = req.body.email ? req.body.email : auth_advogado.email;
-			auth_advogado.senha = req.body.senha ? req.body.senha : auth_advogado.senha;
-			
-            auth_advogado.save(function (err, auth_advogado) {
+            bcrypt.compare(req.body.senha, data.senha, function (err, result) {
                 if (err) {
-                    return res.status(500).json({
-                        message: 'Erro ao editar dados de autenticacao.',
-                        error: err
-                    });
+                    return next('E-Mail ou senha invalida!');
                 }
+                if (result) {
+                    var token = jwt.sign({
+                        id: data.advogado._id
+                    }, '1234567890asdfghjkl', {
+                        expiresIn: 3000
+                    });
 
-                return res.json(auth_advogado);
+                    var retorno = {
+                        token: token,
+                        ...data.advogado._doc
+                    };
+
+                    return res.status(200).json(retorno);
+                }
+                return res.status(401).json({
+                    msg: 'E-Mail ou senha invalida!'
+                });
             });
         });
     },
 
-    /**
-     * auth_advogadoController.remove()
-     */
-    remove: function (req, res) {
-        var id = req.params.id;
-        auth_advogadoModel.findByIdAndRemove(id, function (err, auth_advogado) {
+    logout: function (req, res, next) {
+        res.status(204).json({
+            msg: 'Logout feito com sucesso!'
+        });
+    },
+
+    check: function (req, res, next) {
+        getUserID(req, function (err, data) {
+            if (err) return next(err);
+            if (!data || !data.id) return new Error('UnauthorizedError');
+            advogadoModel.findById(data.id).populate('endereco_cidade').exec(function (erradvogado, advogado) {
+                if (erradvogado) return next(erradvogado);
+                if (!advogado) return next('Usuário não encontrado');
+
+                res.status(200).json(advogado);
+            })
+        });
+    },
+
+    register: function (req, res, next) {
+        if (req.body.email === undefined || req.body.senha === undefined) {
+            throw ('Dados de autenticacao nao encontrados!');
+        }
+
+        bcrypt.hash(req.body.senha, 10, function (err, hash) {
             if (err) {
                 return res.status(500).json({
-                    message: 'Erro ao deletar dados de autenticacao.',
                     error: err
                 });
+            } else {
+                var dados = {
+                    nome: req.body.nome,
+                    cpf: req.body.cpf,
+                    rg: req.body.rg,
+                    carteira_oab: req.body.carteira_oab,
+                    email: req.body.email,
+                    data_nasc: req.body.data_nasc,
+                    numero: req.body.numero,
+                    endereco_cep: req.body.endereco.cep,
+                    endereco_logradouro: req.body.endereco.logradouro,
+                    endereco_bairro: req.body.endereco.bairro,
+                    endereco_numero: req.body.endereco.numero,
+                    endereco_complemento: req.body.endereco.complemento,
+                    endereco_pt_referencia: req.body.endereco.pt_referencia
+                };
+
+                if (req.body.lat !== undefined && req.body.lng !== undefined) {
+                    dados['localizacao'] = {
+                        type: 'Point',
+                        coordinates: [req.body.lat, req.body.lng]
+                    };
+                }
+
+                mongoose.startSession().then(function (session) {
+                    session.startTransaction();
+                    var advogado = new advogadoModel(dados);
+
+                    advogado.save(function (err) {
+                        if (err) {
+                            session.abortTransaction();
+                            return next(err)
+                        };
+
+                        var authRegister = new auth_advogadoModel({
+                            email: req.body.email,
+                            senha: hash,
+                            advogado: advogado._id
+                        });
+
+                        authRegister.save(function (err) {
+                            if (err) {
+                                session.abortTransaction();
+                                return next(err)
+                            };
+
+                            session.commitTransaction();
+                            res.status(201).json({
+                                msg: 'Seja Bem-vindo ' + req.body.nome
+                            });
+                        });
+                    });
+                });
             }
-            return res.status(204).json();
         });
     }
 };

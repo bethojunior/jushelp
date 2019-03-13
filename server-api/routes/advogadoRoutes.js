@@ -13,6 +13,11 @@ router.get('/', advogadoController.list);
 router.get('/:id', advogadoController.show);
 
 /*
+ * GET
+ */
+router.get('/:id/relatos', advogadoController.buscarRelatos);
+
+/*
  * POST
  */
 router.post('/', advogadoController.create);

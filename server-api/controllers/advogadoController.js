@@ -1,4 +1,5 @@
 var advogadoModel = require('../models/advogadoModel.js');
+var relato_pedido_aceiteModel = require('../models/relato_pedido_aceiteModel.js');
 
 /**
  * advogadoController.js
@@ -40,6 +41,27 @@ module.exports = {
                 });
             }
             return res.json(advogado);
+        });
+    },
+
+    /**
+     * advogadoController.buscarRelatos()
+     */
+    buscarRelatos: function (req, res) {
+        var id = req.params.id;
+        relato_pedido_aceiteModel.find({advogado: id}).populate('relato').exec(function (err, relatos) {
+            if (err) {
+                return res.status(500).json({
+                    message: 'Erro ao buscar relatos.',
+                    error: err
+                });
+            }
+            if (!relatos) {
+                return res.status(404).json({
+                    message: 'Registro não encontrado relatos'
+                });
+            }
+            return res.json(relatos);
         });
     },
 

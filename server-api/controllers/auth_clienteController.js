@@ -1,3 +1,4 @@
+var jwtSecret = process.env.JWT_SECRET || '1234567890asdfghjkl';
 var auth_clienteModel = require('../models/auth_clienteModel.js');
 var clienteModel = require('../models/clienteModel.js');
 
@@ -30,7 +31,7 @@ module.exports = {
                 if (result) {
                     var token = jwt.sign({
                         id: data.cliente._id
-                    }, '1234567890asdfghjkl', {
+                    }, jwtSecret, {
                         expiresIn: 3000
                     });
 

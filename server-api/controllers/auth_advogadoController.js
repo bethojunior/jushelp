@@ -1,3 +1,4 @@
+var jwtSecret = process.env.JWT_SECRET || '1234567890asdfghjkl';
 var auth_advogadoModel = require('../models/auth_advogadoModel.js');
 var advogadoModel = require('../models/advogadoModel.js');
 
@@ -30,7 +31,7 @@ module.exports = {
                 if (result) {
                     var token = jwt.sign({
                         id: data.advogado._id
-                    }, '1234567890asdfghjkl', {
+                    }, jwtSecret, {
                         expiresIn: 3000
                     });
 

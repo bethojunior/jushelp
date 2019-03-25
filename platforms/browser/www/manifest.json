@@ -1,0 +1,18 @@
+{
+  "background_color": "#FFF",
+  "display": "standalone",
+  "name": "JusHelp",
+  "short_name": "JusHelp",
+  "version": "io.cordova.hellocordova",
+  "description": "A sample Apache Cordova application that responds to the deviceready event.",
+  "author": "Apache Cordova Team",
+  "icons": [
+    {
+      "src": "res/icon/android/logo.png",
+      "type": "image/png",
+      "sizes": "57x57"
+    }
+  ],
+  "orientation": "portrait",
+  "start_url": "index.html"
+}

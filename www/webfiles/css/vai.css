@@ -1,0 +1,74 @@
+.btnPadrao{
+    background-color: #A6192e;
+    font-size: 4vw;
+    font-weight: 700;
+    text-decoration: none;
+    color: #fff;
+    text-align: center;
+    letter-spacing: .5px;
+    -webkit-transition: .2s ease-out;
+    transition: .2s ease-out;
+    cursor: pointer;
+    border: none;
+    border-radius: 2px;
+    display: inline-block;
+    height: 36px;
+    line-height: 36px;
+    padding: 0 2rem;
+    text-transform: uppercase;
+    vertical-align: middle;
+    -webkit-tap-highlight-color: transparent;
+}
+.center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    top: 0;
+    width: 80%;
+    height: 20%;
+    overflow: auto;
+    background-color: white;
+    margin-left: 9%;
+    margin-top: 15%;
+}
+.modalOpen{
+    transition: 2s;
+    padding: 2vw;
+    display: block;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    top: 0;
+    width: 80%;
+    height: 20%;
+    overflow: auto;
+    background-color: white;
+    margin-left: 9%;
+    margin-top: 15%;
+}
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    border-radius: 1vw;
+}
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}

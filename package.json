@@ -1,34 +1,28 @@
 {
-  "name": "server-api",
-  "version": "0.0.1",
-  "description": "Jushelp app api",
-  "engines": {
-    "node": "10.x"
-  },
-  "main": "server-api/app.js",
-  "scripts": {
-    "start": "node server-api/bin/www"
-  },
-  "dependencies": {
-    "bcrypt": "^3.0.4",
-    "cookie-parser": "~1.4.3",
-    "debug": "~2.6.9",
-    "express": "~4.16.0",
-    "express-jwt": "^5.3.1",
-    "jsonwebtoken": "^8.5.0",
-    "mongoose": "^5.4.18",
-    "mongoose-bcrypt": "^1.6.0",
-    "mongoose-timestamp": "^0.6.0",
-    "morgan": "~1.9.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://git.heroku.com/app-jushelp"
-  },
-  "keywords": [
-    "node",
-    "heroku",
-    "express"
-  ],
-  "license": "MIT"
+    "name": "helloworld",
+    "displayName": "HelloCordova",
+    "version": "1.0.0",
+    "description": "A sample Apache Cordova application that responds to the deviceready event.",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Apache Cordova Team",
+    "license": "Apache-2.0",
+    "dependencies": {
+        "cordova-android": "^7.1.4",
+        "cordova-browser": "^5.0.4",
+        "cordova-plugin-statusbar": "^2.4.2",
+        "cordova-plugin-whitelist": "^1.3.3"
+    },
+    "cordova": {
+        "plugins": {
+            "cordova-plugin-whitelist": {},
+            "cordova-plugin-statusbar": {}
+        },
+        "platforms": [
+            "android",
+            "browser"
+        ]
+    }
 }

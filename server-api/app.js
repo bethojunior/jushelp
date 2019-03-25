@@ -3,6 +3,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mongoose = require('mongoose');
 var jwt = require('./helpers/jwt');
+var errorHandling = require('./helpers/error-handling');
 var mongoUrl = process.env.MONGO_URL || 'mongodb://127.0.0.1:27017/jushelp-v2';
 
 mongoose.connect(mongoUrl, {

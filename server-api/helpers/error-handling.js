@@ -1,4 +1,7 @@
 module.exports = function errorHandling(err, req, res, next) {
+    console.log(err);
+    console.log(typeof (err));
+
     if (typeof(err)=='string') {
       return res.status(400).json({
           msg: err
@@ -11,7 +14,7 @@ module.exports = function errorHandling(err, req, res, next) {
         });
     }
 
-    if (err.name == 'UnauthorizedError') {
+    if (err.name == 'UnauthorizedError' || err.name == 'TokenExpiredError') {
         return res.status(401).json({
             msg: 'Sessão expirada!'
         });

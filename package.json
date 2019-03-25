@@ -1,9 +1,13 @@
 {
   "name": "server-api",
-  "version": "0.0.0",
-  "private": true,
+  "version": "0.0.1",
+  "description": "Jushelp app api",
+  "engines": {
+    "node": "10.x"
+  },
+  "main": "server-api/app.js",
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "start": "node server-api/bin/www"
   },
   "dependencies": {
     "bcrypt": "^3.0.4",
@@ -17,7 +21,14 @@
     "mongoose-timestamp": "^0.6.0",
     "morgan": "~1.9.0"
   },
-  "apidoc": {
-    "title": "Documetação da API"
-  }
+  "repository": {
+    "type": "git",
+    "url": "https://git.heroku.com/app-jushelp"
+  },
+  "keywords": [
+    "node",
+    "heroku",
+    "express"
+  ],
+  "license": "MIT"
 }

@@ -5,21 +5,23 @@ ManagerView.MainView = {
             "utils/Handle",
             "utils/preload",
             "controllers/CustomerController",
+            "controllers/Register",
             "modulos/login/login"
         ];
-        const views = ['preload/index','login/index'];
-        const css = ["login","materialize"];
+        const views = [ 'preload/index', 'login/index' ];
+        const css = [ "login", "materialize" ];
 
         viewController.nameView = "login";
 
-        layoutBuild(views, js, css);
+        layoutBuild( views, js, css );
     },
-    actionSignup: function(){
+    actionSignup: function () {
         const js = [
             "libs/materialize",
             'controllers/CustomerController',
             'modulos/client/register',
-            'utils/validate'
+            'utils/validate',
+            'utils/Form'
         ];
         const css = [
             'materialize',
@@ -34,18 +36,18 @@ ManagerView.MainView = {
 
         viewController.nameView = "signup";
 
-        layoutBuild(views, js, css);
+        layoutBuild( views, js, css );
     },
-    actionLincense: function(){
+    actionLincense: function () {
         const js = [];
-        const css = ['menu','signup'];
+        const css = [ 'menu', 'signup' ];
         const views = [
             'menu/menuTitle',
             'lincense/index',
         ];
-        layoutBuild(views, js, css);
+        layoutBuild( views, js, css );
     },
-    actionForgetPassword: function(){
+    actionForgetPassword: function () {
         const js = [
             "utils/preload",
             "libs/materialize.min.js",
@@ -54,11 +56,11 @@ ManagerView.MainView = {
             "modulos/login/forgetPassword",
 
         ];
-        const css = ['materialize' ,'forgetPassword' , 'preload'];
+        const css = [ 'materialize', 'forgetPassword', 'preload' ];
         const views = [
             'preload/index',
             'login/forgetPassword',
         ];
-        layoutBuild(views, js, css);
+        layoutBuild( views, js, css );
     }
 };

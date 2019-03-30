@@ -150,3 +150,50 @@
     left: -3vw;
     padding: 2vw;
 }
+
+.generalRegister .userLawer.show .container #lawer_container_steps .step.hidden {
+    transition: 0.5s;
+    position: absolute;
+    margin-left: 150%;
+}
+.generalRegister .userLawer.show .container #lawer_container_steps .step {
+    transition: 1s;
+}
+
+.custom-validate.invalid {
+    border-bottom: 1px solid #F44336;
+    -webkit-box-shadow: 0 1px 0 0 #F44336;
+    box-shadow: 0 1px 0 0 #F44336;
+}
+.custom-validate.invalid ~ label {
+    color: #F44336 !important;
+}
+.custom-validate.invalid ~ .prefix {
+    color: #F44336 !important;
+}
+.custom-validate ~ .helper-text {
+    position: absolute;
+    left: 10px;
+    bottom: 0px;
+    font-size: 0.9rem;
+}
+.custom-validate.invalid ~ .helper-text {
+	color: #F44336 !important;
+}
+
+.input-field.invalid i {
+	color: #F44336 !important;
+}
+.input-field.invalid i::after {
+    border-bottom: 1px solid #F44336 !important;
+    -webkit-box-shadow: 0 1px 0 0 #F44336 !important;
+    box-shadow: 0 1px 0 0 #F44336 !important;
+}
+.input-field.invalid span {
+	color: #F44336 !important;
+}
+.input-field.invalid input {
+    border-bottom: 1px solid #F44336;
+    -webkit-box-shadow: 0 1px 0 0 #F44336;
+    box-shadow: 0 1px 0 0 #F44336;
+}

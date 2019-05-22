@@ -1,0 +1,3 @@
+viewController.setObserver("config", function () {
+
+});

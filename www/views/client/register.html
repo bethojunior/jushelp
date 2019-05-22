@@ -1,0 +1,171 @@
+<div class="generalRegister">
+    <div class="info">
+        <div class="logo">
+            <img src="webfiles/img/logo/logo2.png">
+        </div>
+    </div>
+    <div class="chooseUser">
+        <i class="material-icons" id="backLogin">arrow_back</i>
+        <div class="center firstPart">
+            <img id="imgUser" src="webfiles/img/icon/user.png">
+        </div>
+        <div class="center">
+            <span>Usuário</span>
+        </div>
+
+        <div class="center secondPart">
+            <img id="imgAdv" src="webfiles/img/icon/adv.png">
+        </div>
+        <div class="center">
+            <span>Juridico</span>
+        </div>
+    </div>
+
+    <div class="userLawer">
+        <div class="info">
+            <span class="subTitle">Cadastro de Advogado(a)</span>
+        </div>
+        <div class="container">
+            <div class="firstPartLawer">
+                <i class="material-icons backInit">arrow_back</i>
+                <input id="nameLawer" placeholder="Nome completo">
+                <div class="center">
+                    <input id="firstContact" placeholder="Contato" type="tel">
+                    <input id="secondContact" class="" placeholder="Contato" type="tel">
+                </div>
+                <input id="emailLawer" type="email" placeholder="Email">
+                <div class="center">
+                    <input id="oab" class="oab" placeholder="OAB">
+                    <input id="uf" class="uf" placeholder="UF">
+                </div>
+                <div class="center">
+                    <button class="btn toSecond">Avançar</button>
+                </div>
+            </div>
+
+            <div class="secondPassLawer hidden">
+                <i class="material-icons backFirstLawer">arrow_back</i>
+                <div class="content">
+                    <input id="cpfLawer" placeholder="CPF" type="tel">
+                    <input id="rgLawer" placeholder="RG" type="tel">
+                    <input id="cepLawer" placeholder="CEP" type="tel">
+                    <div class="center">
+                        <input id="addressLawer" placeholder="Endereço">
+                        <input type="number" id="numberAddressLawer" placeholder="N°">
+                    </div>
+                    <input id="neighborhoodLawer" placeholder="Bairro">
+                    <div class="center">
+                        <button class="btn btnToThird">Avançar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="thirdPassLawer hidden">
+                <i class="material-icons backSecondLawer">arrow_back</i>
+                <div class="content">
+                    <div class="center">
+                        <b class="fs-5">Especialidades</b>
+                    </div>
+                    <ul class="options">
+                        <li>
+                            <input type="checkbox" id="1">
+                            <label for="1">Criminal</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="2">
+                            <label for="2">Direito da familia</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="3">
+                            <label for="3">Previdenciário</label>
+                        </li>
+                    </ul>
+                </div>
+                <div class="center">
+                    <button id="passFourthPass" class="btnPadrao">Avançar</button>
+                </div>
+            </div>
+
+            <div class="fourthPass hidden">
+                <i class="material-icons backThirdLawer">arrow_back</i>
+                <div class="content">
+                    <div class="center">
+                        <div><b class="fs-5">Selecione um de nossos planos</b></div>
+                    </div>
+                    <div class="optionsPlano">
+                        <p>
+                            <input name="group1" type="radio" id="plano1" />
+                            <label for="plano1">Ouro</label>
+                        </p>
+                        <p>
+                            <input name="group1" type="radio" id="plano2" />
+                            <label for="plano2">Plus</label>
+                        </p>
+                        <p>
+                            <input class="with-gap" name="group1" type="radio" id="plano3"  />
+                            <label for="plano3">Ouro Plus</label>
+                        </p>
+                    </div>
+                </div>
+                <div class="secondContent">
+                    <div class="center">
+                        <b class="fs-5">Selecione uma forma de pagamento</b>
+                    </div>
+                    <div class="optionValues center">
+                        <div class="m2">
+                            <p>
+                                <img style="width: 10vw" src="webfiles/img/icon/code.png"><br>
+                                <label for="payment1">Boleto</label><br>
+                                <input name="group2" type="radio" id="payment1"/>
+                            </p>
+                        </div>
+                        <div class="m2">
+                            <p>
+                                <i style="font-size: 12vw" class="material-icons">credit_card</i><br>
+                                <label for="payment2">Cartão de crédito</label><br>
+                                <input name="group2" type="radio" id="payment2"/>
+                            </p>
+                        </div>
+                        <div class="m2">
+                            <p>
+                                <i style="font-size: 12vw" class="material-icons">attach_money</i><br>
+                                <label for="payment3">Transferencia</label><br>
+                                <input class="with-gap" name="group2" type="radio" id="payment3"/>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="center m2">
+                    <button class="btnPadrao">Finalizar</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="normalUser">
+        <div class="container">
+            <div class="firstPassUser">
+                <i class="material-icons backLogin">arrow_back</i>
+                    <input placeholder="Nome">
+                    <input type="email" placeholder="Email">
+                    <input type="tel" placeholder="Telefone">
+                    <div class="center">
+                        <button class="btnPadrao" id="secondPassNormalUser">AVANÇAR</button>
+                    </div>
+            </div>
+            <div class="secondPassUser hidden">
+                <i class="material-icons backFirstPass">arrow_back</i>
+                <input id="cpfUser" type="number" placeholder="CPF">
+                <input id="rgUser" type="number" placeholder="RG">
+                <input id="cityUser" placeholder="Cidade">
+                <input id="userPlace" placeholder="Endereço">
+                <input placeholder="Bairro" id="bairroUser">
+                <div class="center">
+                    <button class="btnPadrao" id="finallyUser">Finalizar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

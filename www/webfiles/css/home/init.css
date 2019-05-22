@@ -1,0 +1,8 @@
+.row .generalHome{
+    margin-top: 15.3vw;
+    background-color: #D9D9DB;
+    overflow: scroll;
+}
+.row .generalHome .carouselImages .carousel.carousel-slider.center{
+    height: 428.557px!important;
+}

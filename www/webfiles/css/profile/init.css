@@ -1,0 +1,12 @@
+.row .generalProfile{
+    margin-top: 15.3vw;
+    background-color: whitesmoke;
+    overflow: scroll;
+    padding: 1vw;
+    width: 95%;
+    margin-left: 2.5%;
+}
+.row .generalProfile .center.imgUser img{
+    width: 35vw;
+}
+

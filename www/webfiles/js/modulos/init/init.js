@@ -1,0 +1,1 @@
+const elementProperty = new ElementProperty();

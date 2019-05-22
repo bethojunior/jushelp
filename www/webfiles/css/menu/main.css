@@ -1,0 +1,29 @@
+.mainNav{
+    width: 100%;
+    position: fixed;
+    padding: 1vw;
+    box-shadow: 1px 1px 20px 0px rgba(0,0,0,0.26);
+    z-index: 999;
+}
+.mainNav a.button-collapse i.material-icons{
+    color: #d13e54;
+}
+.mainNav .logo{
+    width: 30vw;
+    float: right;
+    margin-right: 4vw;
+    margin-top: 1.5vw;
+}
+.mainNav ul.side-nav .user-view .background{
+    background-color: #a7192f;
+}
+.fixed-action-btn.toolbar a.btn-floating.btn-large{
+    background-color: #A7192F;
+}
+
+.mainNav ul.side-nav .footer{
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 20vw;
+    margin-left: 30vw;
+}

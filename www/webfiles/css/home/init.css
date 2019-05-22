@@ -1,8 +1,42 @@
+.row.openDiv{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    overflow: scroll;
+}
 .row .generalHome{
     margin-top: 15.3vw;
-    background-color: #D9D9DB;
     overflow: scroll;
 }
 .row .generalHome .carouselImages .carousel.carousel-slider.center{
     height: 428.557px!important;
+}
+.row .generalHome .secondPart{
+    margin-top: 3vw;
+}
+.row .generalHome .secondPart .main{
+    padding-top: 1vw;
+    height: 60vw;
+    overflow: scroll;
+    /*box-shadow: 1px 1px 20px 0px rgba(0,0,0,0.26);*/
+}
+.row .generalHome .secondPart .main .post{
+    box-shadow: 1px 1px 20px 0px rgba(0,0,0,0.26);
+    background-color: white;
+    padding: 4vw;
+    margin: 2vw;
+    border-radius: 1vw;
+    position: relative;
+}
+.row .generalHome .secondPart .main .post .when{
+    position: absolute;
+    right: 0;
+    margin-right: 5vw;
+}
+.row .generalHome .secondPart .main .post .titlePost{
+    font-size: 6vw;
+    font-weight: 600;
+}
+.row .generalHome .secondPart .main .post .mainPost{
+    font-size: 3.5vw;
 }

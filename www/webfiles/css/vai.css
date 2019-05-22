@@ -13,6 +13,10 @@
 .m2{
     margin: 2vw!important;
 }
+.mainDivider{
+    width: 80%!important;
+    margin-left: 10%!important;
+}
 .btnPadrao{
     background-color: #A6192e;
     font-size: 4vw;

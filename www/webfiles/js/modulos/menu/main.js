@@ -14,6 +14,13 @@ elementProperty.addEventInElement('#openConfig','onclick',function(){
     closedNav();
 });
 
+elementProperty.addEventInElement('#getOutApp','onclick',function(){
+    Materialize.toast("Até mais Dr Regnobertho", 1000);
+    setTimeout(()=>{
+        Route.redirectDynamic('Main','Login')
+    },1050);
+
+});
 
 function closedNav() {
     $('.button-collapse').sideNav('hide');

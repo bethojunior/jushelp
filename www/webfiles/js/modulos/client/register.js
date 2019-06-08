@@ -3,6 +3,7 @@ viewController.setObserver("Signup", function () {
     let elementProperty = new ElementProperty();
     Mask.setMaskPhone('#firstContact');
     Mask.setMaskPhone('#secondContact');
+    
 
     elementProperty.addEventInElement('#backLogin','onclick',function(){
         Route.redirectDynamic('Main','Login')

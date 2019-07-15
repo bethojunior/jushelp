@@ -231,4 +231,14 @@ class Route {
         layoutBuild(page.views,page.js,page.css,true);
 
     }
+    static defaultStatusBar() {
+        if (cordova.platformId === 'android') {
+            //StatusBar.overlaysWebView(false);
+            StatusBar.backgroundColorByHexString("#A7192F");
+        }
+
+        if(cordova.platformId === "ios"){
+            StatusBar.styleDefault();
+        }
+    }
 }

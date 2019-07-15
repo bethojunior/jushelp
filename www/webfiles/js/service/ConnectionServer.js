@@ -1,4 +1,5 @@
 class ConnectionServer {
+
     static Host() {
         return environment.hosts.hostRequest;
     }
@@ -155,9 +156,9 @@ class ConnectionServer {
 
     }
 
-    static simpleRequeste(url,method = "GET",data = null,resolve){
+    static simpleRequest(url,method = "GET",data = null,resolve){
         $.ajax({
-            url: url,
+            url: this.Host()+url,
             method : method,
             params : data,
             success: function(response){

@@ -5,13 +5,6 @@
         </div>
     </div>
     <div class="chooseUser">
-        <i class="material-icons" id="backLogin">arrow_back</i>
-        <div class="center firstPart">
-            <img id="imgUser" src="webfiles/img/icon/user.png">
-        </div>
-        <div class="center">
-            <span>Usuário</span>
-        </div>
 
         <div class="center secondPart">
             <img id="imgAdv" src="webfiles/img/icon/adv.png">
@@ -34,9 +27,14 @@
                     <input id="secondContact" class="" placeholder="Contato" type="tel">
                 </div>
                 <input id="emailLawer" type="email" placeholder="Email">
+                <input type="password" placeholder="Senha" id="password-lawer">
+                <input type="password" placeholder="Senha *" id="password-lawer-again">
                 <div class="center">
-                    <input id="oab" class="oab" placeholder="OAB">
-                    <input id="uf" class="uf" placeholder="UF">
+                    <input id="oab-user" class="oab" placeholder="OAB">
+                    <div class="input-field col s12">
+                        <select id="uf">
+                        </select>
+                    </div>
                 </div>
                 <div class="center">
                     <button class="btn toSecond">Avançar</button>
@@ -54,6 +52,11 @@
                         <input type="number" id="numberAddressLawer" placeholder="N°">
                     </div>
                     <input id="neighborhoodLawer" placeholder="Bairro">
+                    <div class="input-field col s12">
+                        <select id="mount-cities">
+                        </select>
+                    </div>
+                        
                     <div class="center">
                         <button class="btn btnToThird">Avançar</button>
                     </div>
@@ -68,15 +71,15 @@
                     </div>
                     <ul class="options">
                         <li>
-                            <input type="checkbox" id="1">
+                            <input name='especialidades' type="checkbox" id="1">
                             <label for="1">Criminal</label>
                         </li>
                         <li>
-                            <input type="checkbox" id="2">
+                            <input name='especialidades' type="checkbox" id="2">
                             <label for="2">Direito da familia</label>
                         </li>
                         <li>
-                            <input type="checkbox" id="3">
+                            <input name='especialidades' type="checkbox" id="3">
                             <label for="3">Previdenciário</label>
                         </li>
                     </ul>
@@ -140,31 +143,6 @@
                 </div>
             </div>
 
-        </div>
-    </div>
-
-    <div class="normalUser">
-        <div class="container">
-            <div class="firstPassUser">
-                <i class="material-icons backLogin">arrow_back</i>
-                    <input placeholder="Nome">
-                    <input type="email" placeholder="Email">
-                    <input type="tel" placeholder="Telefone">
-                    <div class="center">
-                        <button class="btnPadrao" id="secondPassNormalUser">AVANÇAR</button>
-                    </div>
-            </div>
-            <div class="secondPassUser hidden">
-                <i class="material-icons backFirstPass">arrow_back</i>
-                <input id="cpfUser" type="number" placeholder="CPF">
-                <input id="rgUser" type="number" placeholder="RG">
-                <input id="cityUser" placeholder="Cidade">
-                <input id="userPlace" placeholder="Endereço">
-                <input placeholder="Bairro" id="bairroUser">
-                <div class="center">
-                    <button class="btnPadrao" id="finallyUser">Finalizar</button>
-                </div>
-            </div>
         </div>
     </div>
 

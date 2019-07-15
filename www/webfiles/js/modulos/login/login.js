@@ -5,25 +5,31 @@ viewController.setObserver("login", function () {
     elementProperty.addEventInElement('#sing','onclick',function(){
         preload(true);
         let dataUser = {};
-        dataUser.name = document.getElementById('email').value;
+        dataUser.email = document.getElementById('email').value;
         dataUser.password = document.getElementById('password').value;
 
-        // if(dataUser.name === '' || dataUser.password === ''){
-        //     preload(false)
-        //     Materialize.toast('Você precisa preencher todos os campos' , 1500);
-        //     return
-        // }
+        if(dataUser.name === '' || dataUser.password === ''){
+            preload(false)
+            Materialize.toast('Você precisa preencher todos os campos' , 1500);
+            return
+        }
 
-
-        //login FALSO
-        Route.redirectDynamic('Main','Index')
-        preload(false)
-
-        // CustomerController.authenticate(dataUser).then(result => {
-        //     console.log(result)
-        // })
+        CustomerController.authenticate(dataUser).then(result => {
+            preload(false)
+            if(result.status){
+                let data = result.response;
+                Session.set('user',data)
+                Materialize.toast('Bem vindo '+ data.name, 1000);
+                setTimeout(() => {
+                    Route.redirectDynamic('Main','Index')
+                },1300);
+                return;
+            }
+            swal('ops','Email e/ou senha inválidos','info');
+        })
 
     });
+
 
     elementProperty.addEventInElement('#singup','onclick',function(){
         Route.redirectDynamic('Main','Signup')

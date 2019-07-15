@@ -1,5 +1,9 @@
 let elementProperty = new ElementProperty();
+let user = Session.get('user');
 $(".button-collapse").sideNav();
+
+document.getElementById('name-user-logged').innerHTML = user.name;
+document.getElementById('email-user-logged').innerHTML = user.email;
 
 elementProperty.addEventInElement('#openProfile','onclick',function(){
     Route.redirectDynamic('Main','Profile')
@@ -15,9 +19,10 @@ elementProperty.addEventInElement('#openConfig','onclick',function(){
 });
 
 elementProperty.addEventInElement('#getOutApp','onclick',function(){
-    Materialize.toast("Até mais Dr Regnobertho", 1000);
+    Materialize.toast("Até mais", 1000);
     setTimeout(()=>{
-        Route.redirectDynamic('Main','Login')
+        Route.redirectDynamic('Main','Login');
+        closedNav();
     },1050);
 
 });

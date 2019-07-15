@@ -1,9 +1,30 @@
+//CORREÇÃO NO STATE ID LINHA 162
+
 viewController.setObserver("Signup", function () {
+    $('select').material_select();
     let dataLawer = {};
+    dataLawer.user = {};
+    dataLawer.lawyer = {}
+    dataLawer.address = {};
+    dataLawer.specialities = [];
     let elementProperty = new ElementProperty();
     Mask.setMaskPhone('#firstContact');
     Mask.setMaskPhone('#secondContact');
+    Mask.setMaskCpf('#cpfLawer');
     
+    CustomerController.getUf().then(response => {
+        elementProperty.getElement('#uf', options => {
+            let txt = '';
+            txt += response.response.map(that => {
+                return `
+                    <option value='${that.id}'>${that.slug}</option>
+                `;
+            }).join('');
+            options.innerHTML = txt;
+            $('select').material_select();
+        });
+    });
+
 
     elementProperty.addEventInElement('#backLogin','onclick',function(){
         Route.redirectDynamic('Main','Login')
@@ -34,23 +55,6 @@ viewController.setObserver("Signup", function () {
         SwalCustom.dialogConfirm('Deseja continuar como usuário Jurídico?','' , status => {
             if(status){
                 secondPass(true);
-            }
-        })
-    });
-
-    elementProperty.addEventInElement('#cepLawer','onchange',function(){
-        preload(true);
-        CustomerController.getDataCep(this.value).then(resolve => {
-            preload(false);
-            if(resolve.status === 1){
-                elementProperty.getElement('#addressLawer',address => {
-                    let breakAddress = resolve.address;
-                    breakAddress.split("-");
-                    address.value = breakAddress;
-                });
-                    elementProperty.getElement('#neighborhoodLawer', neighborhood => {
-                    neighborhood.value = resolve.district;
-                });
             }
         })
     });
@@ -92,23 +96,44 @@ viewController.setObserver("Signup", function () {
     });
 
     elementProperty.addEventInElement('.toSecond','onclick',function(){
-        dataLawer.name      = document.getElementById('nameLawer').value;
-        dataLawer.cotact    = document.getElementById('firstContact').value;
-        dataLawer.cotactTwo = document.getElementById('secondContact').value;
-        dataLawer.email     = document.getElementById('emailLawer').value;
-        dataLawer.oab       = document.getElementById('oab').value;
-        dataLawer.uf        = document.getElementById('uf').value;
 
-        // if(dataLawer.name === '' || dataLawer.cotact === '' || dataLawer.email === '' || dataLawer.oab === '' || dataLawer.uf === ''){
-        //     Materialize.toast('Preencha todos os campos' , 1500);
-        //     return;
-        // }
 
+        dataLawer.user.name           = document.getElementById('nameLawer').value;
+        dataLawer.user.contact_phone  = document.getElementById('firstContact').value;
+        dataLawer.user.email          = document.getElementById('emailLawer').value;
+        dataLawer.lawyer.oab_number   = document.getElementById('oab-user').value;
+        dataLawer.lawyer.state_id     = document.getElementById('uf').value;
+        dataLawer.lawyer.oab_estate   = document.getElementById('uf').value;
+        dataLawer.user.password       = document.getElementById('password-lawer').value
+        let password                  = document.getElementById('password-lawer-again').value
+
+        if(password !== dataLawer.user.password){
+            Materialize.toast('As senhas são diferents',2000);
+            return;
+        }
+        if(dataLawer.user.name === '' || dataLawer.user.contact_phone  === '' || dataLawer.user.email === '' || dataLawer.lawyer.oab === '' || dataLawer.lawyer.uf === ''){
+            Materialize.toast('Preencha todos os campos' , 1500);
+            return;
+        }
         secondPassLawer();
 
     });
 
     function secondPassLawer(){
+        CustomerController.getCities().then(response => {
+            let data = response.response;
+            elementProperty.getElement('#mount-cities', options => {
+                let txt = '';
+                txt += data.data.map(that => {
+                    return `
+                        <option value='${that.id}'>${that.slug}</option>
+                    `;
+                }).join('');
+                options.innerHTML = txt;
+                $('select').material_select();
+            });
+        });
+        
         elementProperty.getElement('.firstPartLawer' , div => {
             div.classList.add('hidden');
         });
@@ -127,6 +152,20 @@ viewController.setObserver("Signup", function () {
     });
 
     elementProperty.addEventInElement('.btnToThird','onclick',function(){
+
+        dataLawer.user.cpf = document.getElementById('cpfLawer').value;
+        dataLawer.user.rg = document.getElementById('rgLawer').value;
+        dataLawer.address.cep = document.getElementById('cepLawer').value;
+        dataLawer.address.number = document.getElementById('numberAddressLawer').value;
+        dataLawer.address.street = document.getElementById('addressLawer').value;
+        dataLawer.address.neighborhood = document.getElementById('neighborhoodLawer').value;
+        dataLawer.address.city_id = document.getElementById('mount-cities').value;
+        dataLawer.address.state_id = '1';
+
+        if(dataLawer.user.cpf === '' || dataLawer.user.rg === ''|| dataLawer.address.cep === '' || dataLawer.address.number === '' || dataLawer.address.street === '' || dataLawer.address.neighborhood  === ''|| dataLawer.address.city_id === ''){
+            Materialize.toast('Preencha todos os campos',800);
+            return;
+        }
         elementProperty.getElement('.thirdPassLawer', div => {
             div.classList.remove('hidden')
         });
@@ -147,18 +186,21 @@ viewController.setObserver("Signup", function () {
         });
     });
 
-
     elementProperty.addEventInElement('#passFourthPass','onclick',function(){
+        dataLawer.specialities.push(1);
+        // preload(true);
+        CustomerController.insert(dataLawer).then(response => {
+            console.log(response);
+        })
 
-        //checa dados dos campos
-        elementProperty.getElement('.thirdPassLawer', div => {
-            div.classList.add('hidden')
-        });
-        elementProperty.getElement('.fourthPass', div => {
-            div.classList.remove('hidden')
-        });
+        // //checa dados dos campos
+        // elementProperty.getElement('.thirdPassLawer', div => {
+        //     div.classList.add('hidden')
+        // });
+        // elementProperty.getElement('.fourthPass', div => {
+        //     div.classList.remove('hidden')
+        // });
     });
-
 
     elementProperty.addEventInElement('.backThirdLawer','onclick',function(){
         elementProperty.getElement('.fourthPass', div => {

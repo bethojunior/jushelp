@@ -76,7 +76,7 @@
     setTimeout(function () {
         try {
             const route = Route.getClassAndAction();
-
+            Route.defaultStatusBar();
             ManagerView[route.classView][route.actionName]();
         }catch (error) {
             alert(error);

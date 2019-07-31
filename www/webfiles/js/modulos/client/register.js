@@ -1,5 +1,3 @@
-//CORREÇÃO NO STATE ID LINHA 162
-
 viewController.setObserver("Signup", function () {
     $('select').material_select();
     let dataLawer = {};
@@ -103,6 +101,7 @@ viewController.setObserver("Signup", function () {
         dataLawer.user.email          = document.getElementById('emailLawer').value;
         dataLawer.lawyer.oab_number   = document.getElementById('oab-user').value;
         dataLawer.lawyer.state_id     = document.getElementById('uf').value;
+        dataLawer.address.state_id    = document.getElementById('uf').value;
         dataLawer.lawyer.oab_estate   = document.getElementById('uf').value;
         dataLawer.user.password       = document.getElementById('password-lawer').value
         let password                  = document.getElementById('password-lawer-again').value
@@ -120,11 +119,11 @@ viewController.setObserver("Signup", function () {
     });
 
     function secondPassLawer(){
-        CustomerController.getCities().then(response => {
+        CustomerController.getCities(dataLawer.address.state_id).then(response => {
             let data = response.response;
             elementProperty.getElement('#mount-cities', options => {
                 let txt = '';
-                txt += data.data.map(that => {
+                txt += data.map(that => {
                     return `
                         <option value='${that.id}'>${that.slug}</option>
                     `;
@@ -160,12 +159,12 @@ viewController.setObserver("Signup", function () {
         dataLawer.address.street = document.getElementById('addressLawer').value;
         dataLawer.address.neighborhood = document.getElementById('neighborhoodLawer').value;
         dataLawer.address.city_id = document.getElementById('mount-cities').value;
-        dataLawer.address.state_id = '1';
 
         if(dataLawer.user.cpf === '' || dataLawer.user.rg === ''|| dataLawer.address.cep === '' || dataLawer.address.number === '' || dataLawer.address.street === '' || dataLawer.address.neighborhood  === ''|| dataLawer.address.city_id === ''){
             Materialize.toast('Preencha todos os campos',800);
             return;
         }
+
         elementProperty.getElement('.thirdPassLawer', div => {
             div.classList.remove('hidden')
         });
@@ -190,7 +189,11 @@ viewController.setObserver("Signup", function () {
         dataLawer.specialities.push(1);
         // preload(true);
         CustomerController.insert(dataLawer).then(response => {
-            console.log(response);
+            if(response.status){
+                swal('Usuário cadastrado com sucesso','','success');
+                return;
+            }
+            swal('Erro ao cadastrar usuário',response.message,'info');
         })
 
         // //checa dados dos campos

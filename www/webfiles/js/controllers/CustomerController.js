@@ -18,9 +18,9 @@ class CustomerController {
         })
     }
 
-    static getCities(){
+    static getCities(state_id){
         return new Promise(resolve => {
-            ConnectionServer.sendRequest('cities','GET','',resolve)
+            ConnectionServer.sendRequest('cities?state_id='+state_id,'GET','',resolve)
         })
     }
 

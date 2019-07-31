@@ -27,6 +27,11 @@ class ConnectionServer {
                             callback(JSON.parse(this.responseText));
                         break;
                     }
+                    case 201 : {
+                        if (callback)
+                            callback(JSON.parse(this.responseText));
+                        break;
+                    }
                     default : {
                         console.error(this.responseText);
                     }
@@ -85,7 +90,17 @@ class ConnectionServer {
                         ConnectionServer.sessionExpired();
                         break;
                     }
+                    case 400 : {
+                        if (callback)
+                            callback(JSON.parse(this.responseText));
+                        break;
+                    }
                     case 200 : {
+                        if (callback)
+                            callback(JSON.parse(this.responseText));
+                        break;
+                    }
+                    case 201 : {
                         if (callback)
                             callback(JSON.parse(this.responseText));
                         break;
@@ -137,6 +152,11 @@ class ConnectionServer {
                         break;
                     }
                     case 200 : {
+                        if (callback)
+                            callback(JSON.parse(this.responseText));
+                        break;
+                    }
+                    case 201 : {
                         if (callback)
                             callback(JSON.parse(this.responseText));
                         break;
